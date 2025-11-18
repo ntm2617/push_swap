@@ -48,5 +48,10 @@ int		check_dup(t_stack	*a, int *new_value);
 t_node	*new_node(int add_value);
 void	add_node(t_stack *a, t_node *n);
 
+/*normalise the index*/
+t_node	*find_smallest(t_stack *a);
+void	set_index(t_stack *a);
+
+/* small sorting (2,3,4,5)*/
 
 #endif
