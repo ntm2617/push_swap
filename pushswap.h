@@ -53,5 +53,8 @@ t_node	*find_smallest(t_stack *a);
 void	set_index(t_stack *a);
 
 /* small sorting (2,3,4,5)*/
+void	sort_two(t_stack *a);
+void	sort_three(t_stack *a);
+void	sort_four(t_stack *a, t_stack *b);
 
 #endif

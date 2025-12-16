@@ -1,4 +1,4 @@
-NAME = libftps.a
+NAME = push_swap
 
 SRC = 
 
