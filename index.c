@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 
+// find smallest number that not set the index yet //
 t_node	*find_smallest(t_stack *a)
 {
 	t_node	*current;
@@ -35,6 +36,7 @@ t_node	*find_smallest(t_stack *a)
 	return (smallest);
 }
 
+// set the index to every node starting at index 0 and goes on //
 void	set_index(t_stack *a)
 {
 	t_node	*smallest;
@@ -43,7 +45,6 @@ void	set_index(t_stack *a)
 	i = 0;
 	if (a->size == 0)
 		return ;
-
 	smallest = find_smallest(a);
 	while (smallest != NULL)
 	{

@@ -12,6 +12,8 @@
 
 #include "push_swap.h"
 
+/*convert the text strings into integers. 
+Also have error detector (showing 1 for error)*/
 int	atoi_extend(int	*show_error, const char *str, int i, int neg)
 {
 	long	n;
@@ -32,7 +34,7 @@ int	atoi_extend(int	*show_error, const char *str, int i, int neg)
 		}
 		i++;
 	}
-	return (int n);
+	return ((int) n);
 }
 
 int	ft_atoi(const char *str, int *show_error)
@@ -43,8 +45,6 @@ int	ft_atoi(const char *str, int *show_error)
 
 	neg = 1;
 	i = 0;
-	// if (str == NULL)
-	// 	return (0);
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
@@ -62,7 +62,8 @@ int	ft_atoi(const char *str, int *show_error)
 	return (neg * n);
 }
 
-int	check_dup(t_stack	*a, int *new_value)
+/* Detect duplicates if duplicate, return 1*/
+int	check_dup(t_stack	*a, int new_value)
 {
 	t_node	*current_node;
 
@@ -76,6 +77,7 @@ int	check_dup(t_stack	*a, int *new_value)
 	return (0);
 }
 
+/*Creating for new node*/
 t_node	*new_node(int add_value)
 {
 	t_node	*new;
@@ -90,6 +92,8 @@ t_node	*new_node(int add_value)
 	return (new);
 }
 
+/*takes new node and attached to the very bottom of stack A
+Also, update size*/
 void	add_node(t_stack *a, t_node *n)
 {
 	t_node	*current;

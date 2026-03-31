@@ -1,6 +1,7 @@
 NAME = push_swap
 
-SRC = 
+SRC = index.c main_helper.c main.c operations1.c operations2.c \
+		operations3.c operations4.c small_sorting.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -11,7 +12,7 @@ FLAG = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+	$(CC) $(FLAG) $(OBJ) -o $(NAME)
 
 %.o: %.c Makefile
 	@$(CC) $(FLAG) -I. -c $< -o $@
