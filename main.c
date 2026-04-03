@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nkarnpan <nkarnpan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/17 00:50:16 by marvin            #+#    #+#             */
-/*   Updated: 2025/11/17 00:50:16 by marvin           ###   ########.fr       */
+/*   Created: 2026/04/03 21:28:08 by nkarnpan          #+#    #+#             */
+/*   Updated: 2026/04/03 21:28:08 by nkarnpan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	extend_main(char **av, t_stack *a, t_stack *b)
 	a->size = 0;
 	b->top = NULL;
 	b->bottom = NULL;
-	b->size = 0; 
+	b->size = 0;
 	while (av[i] != NULL)
 	{
 		num = ft_atoi(av[i], &show_error);
@@ -56,7 +56,6 @@ int	extend_main(char **av, t_stack *a, t_stack *b)
 	}
 	return (0);
 }
-
 
 /*return 1 if error occurs*/
 int	main(int ac, char **av)

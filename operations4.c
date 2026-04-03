@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operations4.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nkarnpan <nkarnpan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/03 21:28:52 by nkarnpan          #+#    #+#             */
+/*   Updated: 2026/04/03 21:28:52 by nkarnpan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static t_node	*p_help(t_stack	*b)
@@ -10,7 +22,7 @@ static t_node	*p_help(t_stack	*b)
 		b->top = NULL;
 		b->bottom = NULL;
 	}
-	else 
+	else
 	{
 		b->top = t_b->next;
 		t_b->next->prev = NULL;

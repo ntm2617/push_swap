@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   big_sorting2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ming <ming@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nkarnpan <nkarnpan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/03 01:11:14 by ming              #+#    #+#             */
-/*   Updated: 2026/04/03 21:11:00 by ming             ###   ########.fr       */
+/*   Created: 2026/04/03 21:26:19 by nkarnpan          #+#    #+#             */
+/*   Updated: 2026/04/03 21:30:46 by nkarnpan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,3 @@ void	move_down(t_stack *a, t_stack *b, int pos, int max)
 		}
 	}
 }
-
-
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operations3.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nkarnpan <nkarnpan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/03 21:28:42 by nkarnpan          #+#    #+#             */
+/*   Updated: 2026/04/03 21:28:42 by nkarnpan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	rra_n(t_stack	*a)
@@ -11,7 +23,6 @@ void	rra_n(t_stack	*a)
 	t = a->top;
 	bt = a->bottom;
 	mid = bt->prev;
-
 	a->top = bt;
 	a->bottom = mid;
 	bt->prev = NULL;
