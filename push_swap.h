@@ -91,9 +91,9 @@ int		moves_bottom(t_stack *a, int chunk_min, int chunk_max);
 int		compare(t_stack *a, t_stack *b, t_chunk *c, int *state_rb);
 void	push_to_b(t_stack *a, t_stack *b, int chunk_size);
 int		biggest_b(t_stack *b, int max);
-void	sort_hun(t_stack *a, t_stack *b, int size_b, int chunk_size);
 void	move_up(t_stack *a, t_stack *b, int pos, int max);
 void	move_down(t_stack *a, t_stack *b, int pos, int max);
 void	sort_hun(t_stack *a, t_stack *b, int size_b, int chunk_size);
+void	sort_hun_helper(t_stack *a, t_stack *b, int max);
 
 #endif

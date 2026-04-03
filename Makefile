@@ -2,7 +2,8 @@ NAME = push_swap
 
 SRC = index.c main_helper.c main.c operations1.c operations2.c \
 		operations3.c operations4.c small_sorting.c free_error.c \
-		main_sorting.c big_sorting1.c ft_split.c big_sorting2.c
+		main_sorting.c big_sorting1.c ft_split.c big_sorting2.c \
+		big_sorting3.c
 
 OBJ = $(SRC:.c=.o)
 
