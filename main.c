@@ -12,32 +12,6 @@
 
 #include "push_swap.h"
 
-void	free_stack(t_stack *a)
-{
-	t_node	*node_bottom;
-	t_node	*before;
-
-	if (a == NULL)
-		return ;
-	node_bottom = a->bottom;
-	while (node_bottom != NULL)
-	{
-		before = node_bottom->prev;
-		free(node_bottom);
-		node_bottom = before;
-	}
-	a->top = NULL;
-	a->bottom = NULL;
-	a->size = 0;
-}
-
-int	write_error(t_stack *a)
-{
-	write(2, "Error\n", 6);
-	free_stack(a);
-	return (1);
-}
-
 int	already_sort(t_stack *a)
 {
 	t_node	*current;
@@ -54,7 +28,7 @@ int	already_sort(t_stack *a)
 	return (0);
 }
 
-int	extend_main(int ac, char **av, t_stack *a, t_stack *b)
+int	extend_main(char **av, t_stack *a, t_stack *b)
 {
 	t_node	*node;
 	int		i;
@@ -62,14 +36,14 @@ int	extend_main(int ac, char **av, t_stack *a, t_stack *b)
 	int		num;
 
 	show_error = 0;
-	i = 1;
+	i = 0;
 	a->top = NULL;
 	a->bottom = NULL;
 	a->size = 0;
 	b->top = NULL;
 	b->bottom = NULL;
 	b->size = 0; 
-	while (i < ac)
+	while (av[i] != NULL)
 	{
 		num = ft_atoi(av[i], &show_error);
 		if (show_error == 1 || check_dup(a, num) == 1)
@@ -83,28 +57,32 @@ int	extend_main(int ac, char **av, t_stack *a, t_stack *b)
 	return (0);
 }
 
+
 /*return 1 if error occurs*/
 int	main(int ac, char **av)
 {
 	t_stack	a;
 	t_stack	b;
+	char	**input;
 
 	if (ac < 2)
 		return (0);
-	if (extend_main(ac, av, &a, &b) == 1)
-		return (1);
-	set_index(&a);
-	if (already_sort(&a) == 0)
+	if (ac == 2)
+		input = ft_split(av[1], ' ');
+	else
+		input = av + 1;
+	if (extend_main(input, &a, &b) == 1)
 	{
-		free_stack(&a);
-		return (0);
+		if (ac == 2)
+			free_split(input);
+		return (1);
 	}
-	if (a.size == 2)
-		sort_two(&a);
-	else if (a.size == 3)
-		sort_three(&a);
-	else if (a.size == 5)
-		sort_five(&a, &b);
+	set_index(&a);
+	if (already_sort(&a) == 1)
+		final_sorting(&a, &b);
 	free_stack(&a);
+	free_stack(&b);
+	if (ac == 2)
+		free_split(input);
 	return (0);
 }
