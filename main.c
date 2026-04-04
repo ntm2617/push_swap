@@ -28,6 +28,16 @@ int	already_sort(t_stack *a)
 	return (0);
 }
 
+void	extend_main2(t_stack *a, t_stack *b)
+{
+	a->top = NULL;
+	a->bottom = NULL;
+	a->size = 0;
+	b->top = NULL;
+	b->bottom = NULL;
+	b->size = 0;
+}
+
 int	extend_main(char **av, t_stack *a, t_stack *b)
 {
 	t_node	*node;
@@ -35,14 +45,14 @@ int	extend_main(char **av, t_stack *a, t_stack *b)
 	int		show_error;
 	int		num;
 
+	if (av == NULL || av[0] == NULL)
+	{
+		write(2, "Error\n", 6);
+		return (1);
+	}
 	show_error = 0;
 	i = 0;
-	a->top = NULL;
-	a->bottom = NULL;
-	a->size = 0;
-	b->top = NULL;
-	b->bottom = NULL;
-	b->size = 0;
+	extend_main2(a, b);
 	while (av[i] != NULL)
 	{
 		num = ft_atoi(av[i], &show_error);

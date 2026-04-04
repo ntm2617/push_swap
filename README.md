@@ -38,8 +38,23 @@ Example 2: Single string argument
 - [Visualizer](https://github.com/o-reo/push_swap_visualizer)
 
 ### AI Usage
-During the development of this project, an AI assistant (Google Gemini) was used as an interactive tutor and debugging partner. The AI was explicitly used for the following tasks:
-- Algorithm Micro-Optimizations: Brainstorming logic to shave off final moves to beat the 5500 limit. This included implementing "True Cost" pathfinding, finding the optimal chunk size (65), and developing the `sb` and `sa` "rescue tricks" to save Phase 2 rotations.
-- Debugging Memory Errors: Identifying and resolving specific C segmentation faults, such as uninitialized struct pointers and `NULL` pointer dereferencing when evaluating empty stacks (`b->top != NULL`).
+During the development of this project, an AI assistant was used as an interactive tutor and debugging partner. The AI was explicitly used for the following tasks:
+- Algorithm Micro-Optimizations: Brainstorming logic to shave off final moves to beat the 5500 limit. 
 - Norminette Refactoring: Restructuring functions to adhere strictly to the 42 Norminette. The AI helped conceptualize how to use `t_chunk` struct pointers and helper functions to bypass the 4-parameter and 25-line limits without breaking the core logic.
 - Documentation: Assisting in structuring and formatting this `README.md` file.
+
+-------------------------------------------
+**Additional**:
+### Features
+- Perfect Score Sorting: Consistently sorts 100 numbers in under 700 moves, and 500 numbers in under 5,500 moves to get the perfect score.
+- Robust Parsing: Safely handles multiple input formats (inline arguments and single strings).
+- Bulletproof Error Management: Detects and handles non-numeric characters, duplicates, and standard/extreme integer overflows (`MAX_INT` / `MIN_INT`) without crashing.
+- Memory Safe: Completely leak-free, managing all dynamic allocations and cleanly freeing stacks and string arrays upon both success and error states.
+
+### Technical Choices
+- Data Structure: Doubly Linked List
+
+### Algorithm Strategy: Optimized Chunking
+1. **Phase 1 (Push to B):** The numbers are indexed, and then pushed to Stack B in specific chunk sizes. 
+   * *Optimization:* When a number is pushed to Stack B, if it belongs in the lower half of the current chunk, `rb` is triggered to send it to the bottom. This effectively cuts the chunk sizes in half, drastically speeding up the search time in Stack A. For 500 numbers, the chunk size is rigidly optimized to **65**, providing the perfect mathematical balance between Phase 1 speed and Phase 2 organization.
+2. **Phase 2 (Push back to A):** The algorithm scans Stack B for the target `max` number, calculates the "True Cost" path (accounting for `rr` and `rrb` synchronization), and rotates it to the top to push back to Stack A.

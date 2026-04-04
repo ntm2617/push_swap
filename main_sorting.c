@@ -6,7 +6,7 @@
 /*   By: nkarnpan <nkarnpan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/03 21:27:53 by nkarnpan          #+#    #+#             */
-/*   Updated: 2026/04/03 21:27:55 by nkarnpan         ###   ########.fr       */
+/*   Updated: 2026/04/04 18:41:09 by nkarnpan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ void	final_sorting(t_stack *a, t_stack *b)
 		sort_two(a);
 	else if (a->size == 3)
 		sort_three(a);
-	else if (a->size == 5)
+	else if (a->size == 5 || a->size == 4)
 		sort_five(a, b);
 	else if (a->size <= 100)
 		sort_hun(a, b, size_b, 20);
 	else if (a->size <= 500 && a->size >= 100)
 		sort_hun(a, b, size_b, 65);
+	else if (a->size > 500 && a->size <= 1000)
+		sort_hun(a, b, size_b, 80);
 }

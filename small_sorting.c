@@ -82,9 +82,14 @@ void	smallest(t_stack *a, t_stack *b)
 
 void	sort_five(t_stack *a, t_stack *b)
 {
-	smallest(a, b);
+	int	size_a;
+
+	size_a = a->size;
+	if (size_a == 5)
+		smallest(a, b);
 	smallest(a, b);
 	sort_three(a);
-	pa(a, b);
+	if (size_a == 5)
+		pa(a, b);
 	pa(a, b);
 }
