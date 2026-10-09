@@ -1,60 +1,124 @@
-This project has been created as part of the 42 curriculum by nkarnpan
 
-**Description**:
-Goal -> The primary objective of the push_swap project is to sort data on a stack, with a strictly limited set of operations, using the absolute lowest possible number of actions. It serves as an intensive exercise in algorithmic logic, optimization, and data structure management within the 42 curriculum.
+## 🔄 Push_Swap
 
-Overview -> The program takes a random list of unsorted integers and places them into "Stack A," while "Stack B" begins empty. To sort the numbers in ascending order within Stack A, you must calculate and execute a highly optimized sequence of specific commands. The allowed moves are limited to:
-	Swap: Exchange the top two elements of a stack.
-	Push: Move the top element from one stack to the other.
-	Rotate: Shift all elements in a stack up or down by one position.
-**Allowed Moves:** sa, sb, ss, pa, pb, ra, rb, rr, rra, rrb, rrr
+A optimized sorting algorithm project for the **42 Curriculum**
 
--------------------------------------------
-**Instructions**:
+
+## 📌 Overview
+
+**Push_swap** is an algorithmic project where the goal is simple yet challenging: sort a random set of integers using **two stacks (`A` and `B`)** and a **strictly limited set of operations**, minimizing the total number of moves.
+
+- **Stack A**: Starts with a list of unsorted numbers and must end up sorted in ascending order.
+- **Stack B**: Starts completely empty and is used as an auxiliary workspace.
+
+---
+
+## 🕹️ Allowed Operations
+
+| Move | Description |
+| :--- | :--- |
+| **`sa`** / **`sb`** / **`ss`** | **Swap**: Swap the first 2 elements at the top of stack A, B, or both. |
+| **`pa`** / **`pb`** | **Push**: Take the top element of one stack and push it onto the top of the other. |
+| **`ra`** / **`rb`** / **`rr`** | **Rotate**: Shift all elements up by 1 position (first becomes last). |
+| **`rra`** / **`rrb`** / **`rrr`** | **Reverse Rotate**: Shift all elements down by 1 position (last becomes first). |
+
+---
+
+## 🧠 Algorithm & Technical Choices
+
+### 1. Data Structure: Doubly Linked List 🔗
+- Each node stores its raw `value`, its normalized `index`, and pointers to `next` and `prev`.
+- A dedicated stack structure tracks `top`, `bottom`, and total `size`, allowing fast $O(1)$ stack operations from both ends.
+
+### 2. Pre-processing: Index Normalization 🔢
+- Before sorting, all numbers are mapped to clean indices `0` through `N - 1`.
+- This removes the complexity of working with negative values or extreme integer boundaries during calculations.
+
+### 3. Small Sorts ($\le 5$ numbers) 🎯
+- **2 & 3 elements**: Hardcoded decision tree solving permutations in $\le 3$ moves.
+- **4 & 5 elements**: Identifies and pushes the smallest values to Stack B, sorts the remaining 3 in Stack A, and pushes them back.
+
+### 4. Big Sort: Optimized Chunking Strategy (100 & 500 numbers) 🚀
+
+The large sorting algorithm is divided into two distinct, highly optimized phases:
+
+#### 🔹 Phase 1: Push to Stack B (Chunk Sorting)
+- Elements are transferred in dynamic **chunks** (e.g., chunk size of **65** for 500 numbers).
+- **Smart Rotation (`rb`) Optimization**: When an element is pushed to B, if its index is in the lower half of the chunk, Stack B is immediately rotated (`rb`). This splits each chunk into two separate tiers inside Stack B, halving search costs later on.
+- **Greedy Direction Cost**: Evaluates whether rotating from the top (`ra`) or reverse-rotating from the bottom (`rra`) requires fewer moves, pairing rotation commands (`rr`) where possible.
+
+#### 🔹 Phase 2: Push Back to Stack A (Cost Calculation)
+- Locates the largest remaining elements in Stack B.
+- Evaluates the shortest rotational path to bring them to the top (using `rb` vs `rrb`).
+- Utilizes smart lookahead (`sort_hun_helper`): if the next target element is just underneath the top, an immediate `sb` or swap-and-push is performed to eliminate unnecessary full stack rotations.
+
+---
+
+## 🛠️ Features
+
+- ⚡ **High Efficiency**: Consistently scores 100/100 (100 numbers in $< 700$ moves, 500 numbers in $< 5,500$ moves).
+- 🛡️ **Robust Parsing**: Accepts both separated arguments (`./push_swap 3 2 1`) and formatted strings (`./push_swap "3 2 1"`).
+- 🚨 **Strict Error Handling**: Validates duplicate numbers, non-numeric characters, and values outside 32-bit `[INT_MIN, INT_MAX]`. Prints `Error\n` to `stderr` and exits gracefully.
+- 🧹 **Zero Memory Leaks**: Cleanly frees all allocations (stacks, nodes, and split strings) on both successful exit and error paths.
+- 📏 **Norminette Compliant**: Meets all 42 Norm standards.
+
+---
+
+## 💻 Compilation & Usage
+
 ### Compilation
-This project includes a standard `Makefile`. To compile the program, open terminal in the root directory of the repository and run: make
-Additional Makefile rules:
-- make clean: Removes all object (.o) files.
-- make fclean: Removes object files and the push_swap executable.
-- make re: Fully recompiles the project from scratch.
+The project includes a standard `Makefile`:
+
+```bash
+make        # Compiles the push_swap executable
+make clean  # Removes object files (.o)
+make fclean # Removes object files and push_swap binary
+make re     # Cleans and recompiles everything
+```
 
 ### Execution
-Example 1: Separate arguments 
-	./push_swap 4 67 3 87 23
-Example 2: Single string argument
-	./push_swap "4 67 3 87 23"
-**The program will output a list of instructions (e.g., pb, ra, sa, rr) line by line. If the input is invalid (contains duplicates, non-integer characters, or numbers larger than an integer), the program will print Error to the standard error output
 
-### Testing with the Checker
-	Verifying the accuracy of your sorting algorithm by piping the output of push_swap into the provided OS checker program (checker_linux).
-- Ensure the checker has execution permissions: chmod +x checker_linux
-- Run the programs together using a variable: ARG="4 67 3 87 23"; ./push_swap $ARG | ./checker_linux $ARG
+```bash
+# Example 1: Multiple arguments
+./push_swap 4 67 3 87 23
 
--------------------------------------------
-**Resources**:
-### references
-- [The least amount of moves with two stacks](https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a)
-- [Push Swap in less than 4200 operations](https://medium.com/@ulysse.gks/push-swap-in-less-than-4200-operations-c292f034f6c0)
-- [Visualizer](https://github.com/o-reo/push_swap_visualizer)
+# Example 2: String argument
+./push_swap "4 67 3 87 23"
+```
 
-### AI Usage
-During the development of this project, an AI assistant was used as an interactive tutor and debugging partner. The AI was explicitly used for the following tasks:
-- Algorithm Micro-Optimizations: Brainstorming logic to shave off final moves to beat the 5500 limit. 
-- Norminette Refactoring: Restructuring functions to adhere strictly to the 42 Norminette. The AI helped conceptualize how to use `t_chunk` struct pointers and helper functions to bypass the 4-parameter and 25-line limits without breaking the core logic.
-- Documentation: Assisting in structuring and formatting this `README.md` file.
+---
 
--------------------------------------------
-**Additional**:
-### Features
-- Perfect Score Sorting: Consistently sorts 100 numbers in under 700 moves, and 500 numbers in under 5,500 moves to get the perfect score.
-- Robust Parsing: Safely handles multiple input formats (inline arguments and single strings).
-- Bulletproof Error Management: Detects and handles non-numeric characters, duplicates, and standard/extreme integer overflows (`MAX_INT` / `MIN_INT`) without crashing.
-- Memory Safe: Completely leak-free, managing all dynamic allocations and cleanly freeing stacks and string arrays upon both success and error states.
+## 🧪 Testing with Checker
 
-### Technical Choices
-- Data Structure: Doubly Linked List
+Verify sorting correctness by piping `push_swap` into the 42 checker:
 
-### Algorithm Strategy: Optimized Chunking
-1. **Phase 1 (Push to B):** The numbers are indexed, and then pushed to Stack B in specific chunk sizes. 
-   * *Optimization:* When a number is pushed to Stack B, if it belongs in the lower half of the current chunk, `rb` is triggered to send it to the bottom. This effectively cuts the chunk sizes in half, drastically speeding up the search time in Stack A. For 500 numbers, the chunk size is rigidly optimized to **65**, providing the perfect mathematical balance between Phase 1 speed and Phase 2 organization.
-2. **Phase 2 (Push back to A):** The algorithm scans Stack B for the target `max` number, calculates the "True Cost" path (accounting for `rr` and `rrb` synchronization), and rotates it to the top to push back to Stack A.
+```bash
+# Give execution permissions to the checker
+chmod +x checker_linux
+
+# Test random numbers and check output
+ARG="4 67 3 87 23"; ./push_swap $ARG | ./checker_linux $ARG
+```
+
+To count operations:
+```bash
+ARG="4 67 3 87 23"; ./push_swap $ARG | wc -l
+```
+
+---
+
+## 🤖 AI Usage Disclosure
+
+In compliance with 42 guidelines, an AI assistant was utilized as a pair-programming partner for:
+- **Algorithmic Fine-Tuning**: Brainstorming micro-optimizations (chunk threshold tuning and paired rotation logic) to stay comfortably under the 5,500 move threshold.
+- **Norminette Refactoring**: Designing helper structs (`t_chunk`) and modular helpers to cleanly satisfy the 4-parameter and 25-line limits.
+- **Documentation**: Structuring and styling this `README.md`.
+
+---
+
+## 📚 References & Resources
+
+- [The least amount of moves with two stacks](https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a) — Jamie Dawson
+- [Push Swap in less than 4200 operations](https://medium.com/@ulysse.gks/push-swap-in-less-than-4200-operations-c292f034f6c0) — Ulysse GKS
+- [Push Swap Visualizer](https://github.com/o-reo/push_swap_visualizer) — Interactive visual debugging tool
+```
